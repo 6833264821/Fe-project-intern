@@ -11,18 +11,21 @@
             Order from your favorite local restaurants and track your meal
             straight to your door.
           </p>
+          <div class="hero-actions">
+            <a routerLink="/login" class="primary-link">Login</a>
+            <a routerLink="/register" class="secondary-link">Register</a>
+          </div>
         </div>
 
         <div class="hero-image-right">
-          <!-- This is your stunning, high-res food photo spread -->
           <img
-            src="https://images.unsplash.com/photo-1675150277436-9c7348972c11?q=80&w=1464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.unsplash.com/photo-1675150277436-9c7348972c11?q=80&w=1464&auto=format&fit=crop"
             alt="Delicious Food Spread Layout"
           />
         </div>
       </div>
+
       <div class="carousel-wrapper">
-        <!-- Left Button -->
         <button class="nav-btn left-btn" (click)="scrollCarousel(-1)">
           &#10094;
         </button>
@@ -50,19 +53,9 @@
           </div>
         </div>
 
-        <!-- Right Button -->
         <button class="nav-btn right-btn" (click)="scrollCarousel(1)">
           &#10095;
         </button>
-      </div>
-
-      <!--<p class="eyebrow">FEProject Store</p>
-      <h2>Welcome to the pink store experience</h2>
-      <p>Browse products, sign in, or create a new account in one clean flow.</p>-->
-
-      <div class="hero-actions">
-        <a routerLink="/login" class="primary-link">Login</a>
-        <a routerLink="/register" class="secondary-link">Register</a>
       </div>
     </div>
   </section>
