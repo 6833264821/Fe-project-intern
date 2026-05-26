@@ -1,0 +1,20 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="eyebrow">Admin Items</p>
+    <h2>จัดการสินค้า: add / edit / delete</h2>
+    <p>หน้านี้ควรต่อกับ ItemService และฟอร์มแก้ไขสินค้า</p>
+  </div>
+
+  <div class="admin-grid">
+    <article class="admin-item" *ngFor="let item of items">
+      <div>
+        <strong>{{ item.name }}</strong>
+        <p>{{ item.description }}</p>
+      </div>
+      <div class="admin-actions">
+        <button type="button">Edit</button>
+        <button type="button" class="danger">Delete</button>
+      </div>
+    </article>
+  </div>
+</section>

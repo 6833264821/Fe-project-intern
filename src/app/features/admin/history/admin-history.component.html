@@ -1,0 +1,20 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="eyebrow">Admin History</p>
+    <h2>ประวัติการสั่งซื้อทั้งหมด</h2>
+    <p>หน้านี้ไว้ดู order history ของทุก user</p>
+  </div>
+
+  <div class="history-list">
+    <article class="history-card" *ngFor="let order of orders">
+      <div>
+        <strong>Order #{{ order.id }}</strong>
+        <p>User ID: {{ order.userId }}</p>
+      </div>
+      <div>
+        <span>{{ order.createdAt }}</span>
+        <strong>฿{{ order.total }}</strong>
+      </div>
+    </article>
+  </div>
+</section>

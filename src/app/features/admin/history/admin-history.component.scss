@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+.page-card {
+  padding: 28px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(45, 55, 72, 0.08);
+}
+
+.eyebrow {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-heading h2 {
+  margin: 10px 0 8px;
+  color: #2d3748;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #4a5568;
+}
+
+.history-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.history-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.history-card p,
+.history-card span {
+  margin: 0;
+  color: #4a5568;
+}
+
+.history-card strong {
+  display: block;
+  color: #2d3748;
+}

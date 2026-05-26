@@ -1,0 +1,22 @@
+<div class="layout-shell user-shell">
+  <header class="layout-header">
+    <div class="brand">
+      <div class="brand-mark">U</div>
+      <div>
+        <p>Customer</p>
+        <h1>User Area</h1>
+      </div>
+    </div>
+
+    <nav class="layout-nav">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/shop" routerLinkActive="active">Shop</a>
+      <a routerLink="/history-buy" routerLinkActive="active">History Buy</a>
+      <button type="button" class="link-button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main class="layout-content">
+    <router-outlet />
+  </main>
+</div>

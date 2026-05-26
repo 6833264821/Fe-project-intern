@@ -1,0 +1,29 @@
+<section class="auth-page">
+  <section class="auth-card">
+    <div>
+      <p class="eyebrow">Register</p>
+      <h2>Create account</h2>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+      <label>
+        Full name
+        <input type="text" formControlName="fullName" placeholder="Your name" />
+      </label>
+
+      <label>
+        Email
+        <input type="email" formControlName="email" placeholder="name@example.com" />
+      </label>
+
+      <label>
+        Password
+        <input type="password" formControlName="password" placeholder="••••••••" />
+      </label>
+
+      <button type="submit" class="submit-button">Register</button>
+
+      <a routerLink="/login" class="text-link">มีบัญชีแล้ว? ไปหน้า Login</a>
+    </form>
+  </section>
+</section>

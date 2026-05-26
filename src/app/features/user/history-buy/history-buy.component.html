@@ -1,0 +1,20 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="eyebrow">History Buy</p>
+    <h2>ประวัติการซื้อของ user</h2>
+    <p>เชื่อมกับ OrderService.getMyOrders() ได้ตรงนี้</p>
+  </div>
+
+  <div class="history-list">
+    <article class="history-card" *ngFor="let order of orders">
+      <div>
+        <strong>Order #{{ order.id }}</strong>
+        <p>{{ order.createdAt }}</p>
+      </div>
+      <div>
+        <span>Status: {{ order.status }}</span>
+        <strong>฿{{ order.total }}</strong>
+      </div>
+    </article>
+  </div>
+</section>

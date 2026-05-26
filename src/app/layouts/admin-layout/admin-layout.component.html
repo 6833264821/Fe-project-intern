@@ -1,0 +1,21 @@
+<div class="layout-shell admin-shell">
+  <header class="layout-header">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <p>Administration</p>
+        <h1>Admin Area</h1>
+      </div>
+    </div>
+
+    <nav class="layout-nav">
+      <a routerLink="/admin/items" routerLinkActive="active">Add / Edit / Delete Item</a>
+      <a routerLink="/admin/history" routerLinkActive="active">History</a>
+      <button type="button" class="link-button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main class="layout-content">
+    <router-outlet />
+  </main>
+</div>

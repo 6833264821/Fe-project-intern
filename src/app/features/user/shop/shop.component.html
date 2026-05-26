@@ -1,0 +1,19 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="eyebrow">Shop</p>
+    <h2>หน้ารวมสินค้าสำหรับ user</h2>
+    <p>ตรงนี้จะต่อกับ ItemService เพื่อดึงสินค้าจาก backend</p>
+  </div>
+
+  <div class="item-grid">
+    <article class="item-card" *ngFor="let item of items">
+      <h3>{{ item.name }}</h3>
+      <p>{{ item.description }}</p>
+      <div class="item-meta">
+        <span>฿{{ item.price }}</span>
+        <small>Stock: {{ item.stock }}</small>
+      </div>
+      <button type="button">Add to cart</button>
+    </article>
+  </div>
+</section>
