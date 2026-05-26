@@ -1,9 +1,64 @@
 <section class="home-page">
   <section class="hero-card">
     <div class="hero-copy">
-      <p class="eyebrow">FEProject Store</p>
+      <div class="web-header">
+        <div class="hero-content-left">
+          <h1>
+            Good food<br />
+            is just a click away
+          </h1>
+          <p>
+            Order from your favorite local restaurants and track your meal
+            straight to your door.
+          </p>
+        </div>
+
+        <div class="hero-image-right">
+          <!-- This is your stunning, high-res food photo spread -->
+          <img
+            src="https://images.unsplash.com/photo-1675150277436-9c7348972c11?q=80&w=1464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Delicious Food Spread Layout"
+          />
+        </div>
+      </div>
+      <div class="carousel-wrapper">
+        <!-- Left Button -->
+        <button class="nav-btn left-btn" (click)="scrollCarousel(-1)">
+          &#10094;
+        </button>
+
+        <div class="carousel-container" id="foodCarousel">
+          <div class="carousel-track">
+            <div class="carousel-slide">
+              <img
+                src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+                alt="Pizza"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+                alt="Burger"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800"
+                alt="Salad"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Button -->
+        <button class="nav-btn right-btn" (click)="scrollCarousel(1)">
+          &#10095;
+        </button>
+      </div>
+
+      <!--<p class="eyebrow">FEProject Store</p>
       <h2>Welcome to the pink store experience</h2>
-      <p>Browse products, sign in, or create a new account in one clean flow.</p>
+      <p>Browse products, sign in, or create a new account in one clean flow.</p>-->
 
       <div class="hero-actions">
         <a routerLink="/login" class="primary-link">Login</a>

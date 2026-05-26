@@ -3,25 +3,25 @@
 }
 
 .home-page {
-  position: relative;
+  /*position: relative;
   isolation: isolate;
   min-height: calc(100vh - 170px);
   display: grid;
   place-items: center;
-  padding: 24px 0;
+  padding: 24px 0;*/
 }
 
 .home-page::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: url('/images/backgrounds/test.png') center/cover no-repeat;
+  //background: url("/images/backgrounds/test.png") center/cover no-repeat;
   opacity: 0.24;
   z-index: -1;
 }
 
 .hero-card {
-  width: min(100%, 920px);
+  /*width: min(100%, 920px);
   display: grid;
   gap: 20px;
   padding: 32px;
@@ -30,16 +30,16 @@
   border: 1px solid rgba(255, 255, 255, 0);
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  box-shadow: 0 12px 30px rgba(185, 28, 28, 0.05);
+  box-shadow: 0 12px 30px rgba(185, 28, 28, 0.05);*/
 }
 
 .eyebrow {
-  margin: 0 0 10px;
+  /*margin: 0 0 10px;
   color: #b91c1c;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: uppercase;*/
 }
 
 .hero-copy h2 {
@@ -53,6 +53,120 @@
   max-width: 54ch;
   color: #4a5568;
   line-height: 1.7;
+}
+
+/*.web-header {
+  width: 100%;
+  height: 50vh;
+  background-color: #ff7f50;
+}*/
+.web-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 10%;
+  background-color: #fbfbfb; /* Clean, light background */
+  min-height: 500px;
+}
+
+.hero-content-left {
+  flex: 1;
+  max-width: 500px;
+}
+
+.hero-image-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image-right img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px; /* Gives the image a modern look */
+  object-fit: cover;
+}
+.carousel-wrapper {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.left-btn {
+  left: 15px;
+}
+.right-btn {
+  right: 15px;
+}
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.caroursel-wrapper {
+  width: 100%;
+  height: 800px;
+}
+/* The outer window that hides the overflow */
+.carousel-container {
+  display: block;
+  width: 100%;
+  height: 800px;
+  max-width: 600px; /* Limits size on desktop */
+  margin: 0 auto;
+  overflow-x: auto; /* Allows horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Force slides to snap into place */
+  scrollbar-width: none; /* Hides scrollbar on Firefox */
+  white-space: nowrap;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none; /* Hides scrollbar on Chrome/Safari */
+}
+
+/* The long row holding all the slides */
+.carousel-track {
+  display: flex;
+}
+
+/* Individual slides */
+.carousel-slide {
+  flex: 0 0 100%; /* Each slide takes up 100% of the container width */
+  scroll-snap-align: start; /* Where the slide snaps */
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0 8px; /* Adds a tiny gap between slides */
+  box-sizing: border-box;
+  height: 500px;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 400px; /* Controls the height of your banner */
+  object-fit: cover; /* Keeps image from looking squished */
+  border-radius: 12px;
+}
+
+.promo-text {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero-actions {
