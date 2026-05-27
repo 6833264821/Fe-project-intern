@@ -1,5 +1,21 @@
-:host {
-  display: block;
+// พื้นหลัง card — ตาม login
+:host ::ng-deep .surface-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(1px) !important;
+  -webkit-backdrop-filter: blur(1px) !important;
+  box-shadow: 0 20px 50px rgba(185, 28, 28, 0.08) !important;
+}
+
+// สีตัวอักษร label — ตาม login
+:host ::ng-deep .surface-card label {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+// h2
+:host ::ng-deep .surface-card h2 {
+  color: #2d3748;
 }
 
 .auth-page {
@@ -113,4 +129,24 @@
   &:hover:not(.active) {
     background-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+// พื้นหลัง card ขาว
+:host ::ng-deep .surface-card {
+  background: #ffffff !important;
+}
+
+// ปุ่ม role ปกติ (outlined)
+:host ::ng-deep .role-toggle.p-button-outlined {
+  border-color: #b91c1c !important;
+  color: #b91c1c !important;
+  background: transparent !important;
+}
+
+// ปุ่ม role ที่ active (filled)
+:host ::ng-deep .role-toggle:not(.p-button-outlined),
+:host ::ng-deep .role-active .p-button {
+  background-color: #b91c1c !important;
+  border-color: #b91c1c !important;
+  color: #ffffff !important;
 }

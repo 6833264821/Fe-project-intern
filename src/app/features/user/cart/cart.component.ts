@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Router } from '@angular/router';
@@ -21,12 +21,37 @@ export class CartComponent {
   isConfirming = false;
   selectedIds = new Set<number>();
 
+  modal: {
+    show: boolean;
+    message: string;
+    onConfirm: () => void;
+    onCancel?: () => void;
+  } = { show: false, message: '', onConfirm: () => {} };
+
+  // helper: alert (ปุ่มเดียว)
+  private showAlert(message: string, onConfirm: () => void = () => {}) {
+    this.modal = { show: true, message, onConfirm: () => { this.modal.show = false; onConfirm(); } };
+  }
+
+  // helper: confirm (สองปุ่ม)
+  private showConfirm(message: string, onConfirm: () => void) {
+    this.modal = {
+      show: true,
+      message,
+      onConfirm: () => { this.modal.show = false; onConfirm(); },
+      onCancel: () => { this.modal.show = false; },
+    };
+  }
+
+  closeModal() {
+    this.modal.show = false;
+  }
+
   get items(): CartItem[] {
     return this.cartService.getCartItems();
   }
 
   ngOnInit() {
-    // Select all by default when component loads
     this.cartService.getCartItems().forEach(c => this.selectedIds.add(c.item.id));
   }
 
@@ -66,71 +91,72 @@ export class CartComponent {
     return this.selectedItems.reduce((sum, c) => sum + c.quantity, 0);
   }
 
-  increase(itemId: number) {
-    this.cartService.increaseQuantity(itemId);
-  }
+  increase(itemId: number) { this.cartService.increaseQuantity(itemId); }
 
   decrease(itemId: number) {
     this.cartService.decreaseQuantity(itemId);
-    // ถ้า qty ลดเหลือ 0 จะถูกลบออก ให้ลบออกจาก selectedIds ด้วย
     if (!this.items.find(c => c.item.id === itemId)) {
       this.selectedIds.delete(itemId);
     }
   }
 
   remove(itemId: number, itemName: string) {
-    const confirmed = window.confirm(`ลบ "${itemName}" ออกจากตะกร้า?`);
-    if (!confirmed) return;
-    this.cartService.removeFromCart(itemId);
-    this.selectedIds.delete(itemId);
+    this.showConfirm(`ลบ "${itemName}" ออกจากตะกร้า?`, () => {
+      this.cartService.removeFromCart(itemId);
+      this.selectedIds.delete(itemId);
+    });
   }
 
   confirmOrder() {
     if (this.selectedItems.length === 0) {
-      window.alert('กรุณาเลือกสินค้าที่ต้องการสั่งซื้ออย่างน้อย 1 รายการ');
+      this.showAlert('กรุณาเลือกสินค้าที่ต้องการสั่งซื้ออย่างน้อย 1 รายการ');
       return;
     }
 
     const currentUserId = this.authService.getUser().id;
     if (!currentUserId) {
-      window.alert('ไม่พบข้อมูลเซสชันผู้ใช้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
-      this.router.navigate(['/login']);
+      this.showAlert('ไม่พบข้อมูลเซสชันผู้ใช้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง', () => {
+        this.router.navigate(['/login']);
+      });
       return;
     }
 
-    const confirmed = window.confirm(
+    this.showConfirm(
       `ยืนยันคำสั่งซื้อ ${this.selectedItems.length} รายการ\nรวม ฿${this.selectedTotal} ?`,
+      () => {
+        this.isConfirming = true;
+
+        const payload = {
+          userId: currentUserId,
+          items: this.selectedItems.map(c => ({ productId: c.item.id, quantity: c.quantity })),
+          total: this.selectedTotal,
+          status: 'pending' as const,
+        };
+
+        this.orderService.createOrder(payload).subscribe({
+          next: () => {
+            this.isConfirming = false;
+            const confirmedIds = [...this.selectedIds];
+            confirmedIds.forEach(id => this.cartService.removeFromCart(id));
+            this.selectedIds.clear();
+            this.showAlert('สั่งซื้อสำเร็จ! ระบบกำลังพาไปหน้าประวัติการซื้อ', () => {
+              this.router.navigate(['/history-buy']);
+            });
+          },
+          error: (err) => {
+            this.isConfirming = false;
+            
+            const body = err.error;
+            let message = 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
+
+            if (body?.error === 'Insufficient stock') {
+              message = `"${body.productName}" มีสินค้าคงเหลือเพียง ${body.availableQuantity} ชิ้น\nไม่สามารถสั่งซื้อ ${body.requestedQuantity} ชิ้นได้`;
+            }
+
+            this.showAlert(message);
+          },
+        });
+      }
     );
-    if (!confirmed) return;
-
-    this.isConfirming = true;
-
-    const payload = {
-      userId: currentUserId,
-      items: this.selectedItems.map((c) => ({
-        productId: c.item.id,
-        quantity: c.quantity,
-      })),
-      total: this.selectedTotal,
-      status: 'pending' as const,
-    };
-
-    this.orderService.createOrder(payload).subscribe({
-      next: () => {
-        this.isConfirming = false;
-        // ลบเฉพาะ item ที่ถูกเลือก (ที่เหลือยังอยู่ในตะกร้า)
-        const confirmedIds = [...this.selectedIds];
-        confirmedIds.forEach(id => this.cartService.removeFromCart(id));
-        this.selectedIds.clear();
-        window.alert('สั่งซื้อสำเร็จ! ระบบกำลังพาไปหน้าประวัติการซื้อ');
-        this.router.navigate(['/history-buy']);
-      },
-      error: (err) => {
-        this.isConfirming = false;
-        console.error('Status:', err.status);
-        console.error('Error body:', err.error);
-        window.alert(JSON.stringify(err.error));
-      },
-    });
   }
 }

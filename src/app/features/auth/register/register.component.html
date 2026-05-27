@@ -1,5 +1,5 @@
 <div class="flex justify-content-center align-items-center min-h-screen">
-  <p-card styleClass="w-30rem">
+  <p-card styleClass="w-30rem surface-card">
 
     <h2 class="mt-0 mb-4 font-semibold">Create account</h2>
 
@@ -37,22 +37,17 @@
     <div class="flex flex-column gap-2 mb-4">
       <label>Register as</label>
       <div class="flex gap-2">
-        <p-button label="User" icon="pi pi-user" styleClass="w-full"
-                  [style]="{ 
-                    'background-color': role === 'User' ? '#b91c1c' : 'transparent',
-                    'border-color': '#b91c1c',
-                    'color': role === 'User' ? '#ffffff' : '#b91c1c'
-                  }"
-                  (onClick)="selectRole('User')" />
+        <p-button label="User" icon="pi pi-user"
+          [outlined]="role !== 'User'"
+          styleClass="role-toggle w-full"
+          [ngClass]="{ 'role-active': role === 'User' }"
+          (onClick)="selectRole('User')" />
 
-        <!-- ปุ่ม Admin -->
-        <p-button label="Admin" icon="pi pi-shield" styleClass="w-full"
-                  [style]="{
-                    'background-color': role === 'Admin' ? '#b91c1c' : 'transparent',
-                    'border-color': '#b91c1c',
-                    'color': role === 'Admin' ? '#ffffff' : '#b91c1c'
-                  }"
-                  (onClick)="selectRole('Admin')" />
+        <p-button label="Admin" icon="pi pi-shield"
+          [outlined]="role !== 'Admin'"
+          styleClass="role-toggle w-full"
+          [ngClass]="{ 'role-active': role === 'Admin' }"
+          (onClick)="selectRole('Admin')" />
       </div>
     </div>
 
@@ -69,8 +64,8 @@
 
     <!-- Submit -->
     <p-button label="Register" styleClass="w-full"
-              [style]="{ 'background-color': '#b91c1c', 'border-color': '#b91c1c' }"
-              (onClick)="submit()" />
+      [style]="{ 'background-color': '#b91c1c', 'border-color': '#b91c1c', 'color': '#ffffff' }"
+      (onClick)="submit()" />
 
     <!-- Message -->
     @if (message) {
