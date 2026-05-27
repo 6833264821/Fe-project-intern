@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Router } from '@angular/router';
 import { OrderService } from '../../../core/services/order.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +16,7 @@ export class CartComponent {
   cartService = inject(CartService);
   private orderService = inject(OrderService);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   isConfirming = false;
   selectedIds = new Set<number>();
@@ -89,6 +91,13 @@ export class CartComponent {
       return;
     }
 
+    const currentUserId = this.authService.getUser().id;
+    if (!currentUserId) {
+      window.alert('ไม่พบข้อมูลเซสชันผู้ใช้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const confirmed = window.confirm(
       `ยืนยันคำสั่งซื้อ ${this.selectedItems.length} รายการ\nรวม ฿${this.selectedTotal} ?`,
     );
@@ -97,7 +106,7 @@ export class CartComponent {
     this.isConfirming = true;
 
     const payload = {
-      userId: 1,
+      userId: currentUserId,
       items: this.selectedItems.map((c) => ({
         productId: c.item.id,
         quantity: c.quantity,
