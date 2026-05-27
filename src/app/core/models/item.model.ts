@@ -5,7 +5,7 @@ export interface Item {
   category?: string;
   store?: string;
   price: number;
-  stock: number;
+  quantity: number;
   imageUrl?: string;
   isActive: boolean;
 }

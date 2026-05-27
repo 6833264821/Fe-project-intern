@@ -21,7 +21,7 @@ export class ShopComponent {
       store: 'Rose House Shop',
       description: 'เสื้อฮู้ดโทนชมพูสำหรับโหมดชอปปิ้ง',
       price: 990,
-      stock: 12,
+      quantity: 12,
       isActive: true,
     },
     {
@@ -31,7 +31,7 @@ export class ShopComponent {
       store: 'Pink Accessory Store',
       description: 'หมวกทรงเรียบสำหรับสไตล์มินิมอล',
       price: 450,
-      stock: 25,
+      quantity: 25,
       isActive: true,
     },
     {
@@ -41,7 +41,7 @@ export class ShopComponent {
       store: 'Cherry Market',
       description: 'กระเป๋าใส่ของสำหรับใช้งานทุกวัน',
       price: 1290,
-      stock: 8,
+      quantity: 8,
       isActive: true,
     },
   ];

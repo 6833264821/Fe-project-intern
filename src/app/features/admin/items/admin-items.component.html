@@ -1,19 +1,36 @@
 <section class="page-card">
   <div class="page-heading">
-    <p class="eyebrow">Admin Items</p>
-    <h2>จัดการสินค้า: add / edit / delete</h2>
-    <p>หน้านี้ควรต่อกับ ItemService และฟอร์มแก้ไขสินค้า</p>
+    <div class="header-main">
+      <div>
+        <p class="eyebrow">Admin Panel</p>
+        <h2>จัดการสินค้า: Edit / Delete</h2>
+      </div>
+      <button type="button" class="btn-add" routerLink="/admin/add-product">
+      + เพิ่มสินค้าใหม่
+      </button>
+    </div>
+    <p>หน้านี้ต่อกับระบบ Backend เรียบร้อยแล้ว</p>
   </div>
 
   <div class="admin-grid">
     <article class="admin-item" *ngFor="let item of items">
-      <div>
+      <div class="item-details">
         <strong>{{ item.name }}</strong>
-        <p>{{ item.description }}</p>
+        <p class="description">{{ item.description }}</p>
+        
+        <div class="item-meta">
+          <span class="price">ราคา: <strong>{{ item.price | number }}</strong> บาท <br></span>
+          <span class="stock">คงเหลือ: <strong>{{ item.quantity | number }}</strong> ชิ้น</span>
+          <br>
+          <span class="status-badge" [ngClass]="item.isActive ? 'active' : 'inactive'">
+            {{ item.isActive ? 'วางขายอยู่' : 'ปิดการขาย' }}
+          </span>
+        </div>
       </div>
+      
       <div class="admin-actions">
-        <button type="button">Edit</button>
-        <button type="button" class="danger">Delete</button>
+        <button type="button" class="btn-edit">Edit</button>
+        <button type="button" class="danger btn-delete">Delete</button>
       </div>
     </article>
   </div>

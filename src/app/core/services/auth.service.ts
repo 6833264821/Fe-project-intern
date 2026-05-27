@@ -7,6 +7,7 @@ import {
   LoginRequest,
   RegisterRequest,
 } from '../models/auth-user.model';
+import { Item } from '../models/item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,15 +40,20 @@ export class AuthService {
     return Boolean(localStorage.getItem(this.storageTokenKey));
   }
 
-  getRole(): 'user' | 'admin' | null {
-    const user = this.getUser();
-    return user?.role ?? null;
-  }
+  getUser(): any | null {
+  const rawUser = localStorage.getItem(this.storageUserKey);
+  if (!rawUser) return null;
+  
+  const parsed = JSON.parse(rawUser);
+  // If the parsed object has a nested .user property, return that instead!
+  return parsed.user ? parsed.user : parsed;
+}
 
-  getUser(): AuthUser | null {
-    const rawUser = localStorage.getItem(this.storageUserKey);
-    return rawUser ? (JSON.parse(rawUser) as AuthUser) : null;
-  }
+getRole(): string | null {
+  const user = this.getUser();
+  console.log('AuthService extracted user:', user); // Debug log to see what it finds
+  return user?.role ?? null;
+}
 
   private saveSession(user: any): void {
   // 1. Check for 'accessToken' (Your API's primary response key)

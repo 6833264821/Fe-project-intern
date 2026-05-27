@@ -4,6 +4,8 @@ import { authGuard } from './core/guards/auth.guard';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { AdminItemsComponent } from './features/admin/items/admin-items.component';
+import { AddProductComponent } from './features/admin/add-product/add-product.component';
 
 export const routes: Routes = [
   {
@@ -90,6 +92,7 @@ export const routes: Routes = [
             (m) => m.AdminHistoryComponent,
           ),
       },
+	  { path: 'add-product', component: AddProductComponent },
     ],
   },
   {
