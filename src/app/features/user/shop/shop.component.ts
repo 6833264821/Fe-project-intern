@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { Item } from '../../../core/models/item.model';
 import { CartService } from '../../../core/services/cart.service';
+import { ProductService } from '../../../core/services/product.service'; 
 
 @Component({
   selector: 'app-shop',
@@ -10,33 +11,35 @@ import { CartService } from '../../../core/services/cart.service';
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit { 
   private cartService = inject(CartService);
+  private productService = inject(ProductService); 
 
-  readonly items: Item[] = [
-    {
-      id: 6,
-      name: 'Green Tea',
-      category: 'Drink',
-      store: 'Tokyo Cafe',
-      description: 'Japanese green tea',
-      price: 990,
-      quantity: 12,
-      isActive: true,
-    },
-    {
-      id: 7,
-      name: 'Krapraw',
-      category: 'Food',
-      store: 'Somewhere',
-      description: 'This is a Food',
-      price: 450,
-      quantity: 25,
-      isActive: true,
-    },
-  ];
+  
+  items: Item[] = []; 
+  isLoading = false; 
 
   private readonly cartQuantities: Record<number, number> = {};
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  
+  loadProducts(): void {
+    this.isLoading = true;
+    this.productService.getProducts().subscribe({
+      next: (data) => {
+        this.items = data; 
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching products:', err);
+        this.isLoading = false;
+        window.alert('ไม่สามารถดึงข้อมูลสินค้าจากฐานข้อมูลได้: ' + JSON.stringify(err.error));
+      }
+    });
+  }
 
   quantityOf(item: Item): number {
     return this.cartQuantities[item.id] ?? 0;
