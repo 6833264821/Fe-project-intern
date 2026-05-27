@@ -40,6 +40,13 @@
 
     <div class="cart-total">
       <h3>Total: ฿{{ cartService.getTotalPrice() }}</h3>
+      <button
+        class="confirm-btn"
+        (click)="confirmOrder()"
+        [disabled]="isConfirming"
+      >
+        {{ isConfirming ? "กำลังสั่งซื้อ..." : "ยืนยันคำสั่งซื้อ" }}
+      </button>
     </div>
   }
 </div>
