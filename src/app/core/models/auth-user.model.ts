@@ -14,5 +14,7 @@ export interface LoginRequest {
 export interface RegisterRequest {
   fullName: string;
   email: string;
+  tel: string;          
   password: string;
+  adminSecretKey?: string;
 }
