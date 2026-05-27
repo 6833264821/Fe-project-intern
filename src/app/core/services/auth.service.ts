@@ -49,24 +49,17 @@ export class AuthService {
     return rawUser ? (JSON.parse(rawUser) as AuthUser) : null;
   }
 
-  /*private saveSession(user: AuthUser): void {
-    if (user.token) {
-      localStorage.setItem(this.storageTokenKey, user.token);
-  private saveSession(user: AuthUser): void {
-    if (user.accessToken) {
-      localStorage.setItem(this.storageTokenKey, user.accessToken);
-    }
-    localStorage.setItem(this.storageUserKey, JSON.stringify(user));
-  }*/
   private saveSession(user: any): void {
-    // Check if user.data exists and has a token
-    if (user?.data?.token) {
-      localStorage.setItem(this.storageTokenKey, user.data.token);
-      localStorage.setItem(this.storageUserKey, JSON.stringify(user.data));
-    } else if (user?.token) {
-      // Backup case just in case some endpoints don't nest it
-      localStorage.setItem(this.storageTokenKey, user.token);
-      localStorage.setItem(this.storageUserKey, JSON.stringify(user));
-    }
+  // 1. Check for 'accessToken' (Your API's primary response key)
+  if (user?.accessToken) {
+    localStorage.setItem(this.storageTokenKey, user.accessToken);
+  } 
+  // 2. Fallback check for plain 'token' just in case
+  else if (user?.token) {
+    localStorage.setItem(this.storageTokenKey, user.token);
   }
+
+  // 3. Save the entire user object information as a string
+  localStorage.setItem(this.storageUserKey, JSON.stringify(user));
+}
 }
