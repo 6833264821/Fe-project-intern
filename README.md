@@ -28,25 +28,75 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Fordev
 
-Setup ก่อนเริ่มพัฒนา
+### 1) Setup ก่อนเริ่มพัฒนา
 
-1. ติดตั้ง Node.js LTS (แนะนำเวอร์ชัน 20 ขึ้นไป)
-2. ติดตั้ง Angular CLI เวอร์ชัน 18
-	- npm install -g @angular/cli@18
-3. ติดตั้ง dependencies ของโปรเจกต์
-	- npm install
+1. ติดตั้ง Node.js LTS (แนะนำ v20+)
+2. ติดตั้ง Angular CLI v18
 
-PrimeNG ที่โปรเจกต์นี้ใช้
+```bash
+npm install -g @angular/cli@18
+```
 
-1. primeng@18
-2. @primeuix/themes
-3. primeicons
-4. primeflex
+3. ติดตั้ง package ของโปรเจกต์
 
-ถ้าต้องติดตั้งใหม่เองให้ใช้
+```bash
+npm install
+```
 
-- npm install primeng@18 @primeuix/themes primeicons primeflex
+### 2) PrimeNG ที่โปรเจกต์นี้ใช้
 
-เอกสาร PrimeNG v18
+- primeng@18
+- @primeuix/themes
+- primeicons
+- primeflex
 
+กรณีต้องติดตั้งใหม่:
+
+```bash
+npm install primeng@18 @primeuix/themes primeicons primeflex
+```
+
+PrimeNG v18 docs:
 https://v18.primeng.org/installation
+
+### 3) วิธีรันโปรเจกต์
+
+```bash
+npm start
+```
+
+เปิดที่:
+http://localhost:4200/
+
+### 4) Workflow ทำงานร่วมกับเพื่อน (Git)
+
+1. ดึงโค้ดล่าสุดก่อนเริ่มงานทุกครั้ง
+
+```bash
+git pull origin main
+```
+
+2. สร้าง branch แยกสำหรับงานตัวเอง
+
+```bash
+git checkout -b feature/<feature-name>
+```
+
+3. ทำงานและ commit
+
+```bash
+git add .
+git commit -m "feat: <short-description>"
+```
+
+4. push branch ขึ้น GitHub
+
+```bash
+git push -u origin feature/<feature-name>
+```
+
+### 5) หมายเหตุสำคัญ
+
+- ห้าม push งานตรงเข้า `main` ถ้าเป็นงานฟีเจอร์
+- ควร pull ก่อนเริ่มงานทุกครั้งเพื่อลด conflict
+- ถ้าเจอปัญหา package ให้ลบ `node_modules` และ `package-lock.json` แล้วรัน `npm install` ใหม่
