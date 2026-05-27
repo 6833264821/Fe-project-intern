@@ -12,6 +12,7 @@ import { CartService } from '../../../core/services/cart.service';
 })
 export class ShopComponent {
   private cartService = inject(CartService);
+
   readonly items: Item[] = [
     {
       id: 1,
@@ -44,10 +45,6 @@ export class ShopComponent {
       isActive: true,
     },
   ];
-<<<<<<< HEAD
-  addToCart(item: Item) {
-    this.cartService.addToCart(item);
-=======
 
   private readonly cartQuantities: Record<number, number> = {};
 
@@ -61,28 +58,33 @@ export class ShopComponent {
 
   addToCart(item: Item): void {
     this.cartQuantities[item.id] = Math.max(1, this.quantityOf(item) + 1);
+    this.cartService.addToCart(item);
   }
 
   increase(item: Item): void {
     this.cartQuantities[item.id] = this.quantityOf(item) + 1;
+    this.cartService.addToCart(item);
   }
 
   decrease(item: Item): void {
     const nextQuantity = Math.max(0, this.quantityOf(item) - 1);
     if (nextQuantity === 0) {
       delete this.cartQuantities[item.id];
+      this.cartService.removeFromCart(item.id);
       return;
     }
-
     this.cartQuantities[item.id] = nextQuantity;
+    this.cartService.removeFromCart(item.id);
   }
 
   get cartTotal(): number {
-    return this.items.reduce((total, item) => total + item.price * this.quantityOf(item), 0);
+    return this.items.reduce(
+      (total, item) => total + item.price * this.quantityOf(item),
+      0,
+    );
   }
 
   get cartCount(): number {
     return this.items.reduce((count, item) => count + this.quantityOf(item), 0);
->>>>>>> b82ea18fd7cabeaba143ceaab699a571750ac926
   }
 }
