@@ -15,13 +15,15 @@
           @if (editingOrder?.orderId !== order.orderId) {
             <div class="order-info">
               <div>
-                <strong>Order #{{ order.orderId }}</strong>
+                @for (detail of order.details; track detail.productId) {
+                  <strong
+                    >{{ detail.productName }} x {{ detail.quantity }}</strong
+                  >
+                  <!--<p>{{ detail.price }}</p>-->
+                }
                 <p>{{ order.createdAt | date: "yyyy-MM-dd" }}</p>
-                <ul class="order-items">
-                  @for (detail of order.details; track detail.productId) {
-                    <li>{{ detail.productName }} x{{ detail.quantity }}</li>
-                  }
-                </ul>
+
+                <ul class="order-items"></ul>
               </div>
               <div class="order-meta">
                 <div class="order-actions">
@@ -36,7 +38,6 @@
             </div>
           } @else {
             <div class="edit-form">
-              <strong>แก้ไข Order #{{ order.orderId }}</strong>
               @for (detail of editingOrder!.details; track detail.productId) {
                 <div class="edit-item">
                   <span>{{ detail.productName }}</span>
