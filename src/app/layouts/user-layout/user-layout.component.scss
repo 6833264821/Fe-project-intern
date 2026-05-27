@@ -9,11 +9,12 @@
   background: #fff5f5;
 }
 
+// 👇 only ONE .layout-header block
 .layout-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 1rem;
   padding: 18px 22px;
   border-radius: 20px;
   background: #ffffff;
@@ -25,6 +26,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  // 👇 no margin-right: auto here
 }
 
 .brand-mark {
@@ -59,6 +61,7 @@
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  margin-left: auto; // 👈 pushes nav to far right
 }
 
 .layout-nav a,
@@ -74,8 +77,21 @@
   cursor: pointer;
 }
 
+.layout-nav a.active {
+  background: #b91c1c;
+  color: #ffffff;
+}
+
 .cart-link {
   position: relative;
+  display: flex;
+  align-items: center;
+  color: #c0392b;
+  margin-left: 1rem; // 👈 small gap from brand
+
+  .material-icons {
+    font-size: 1.5rem;
+  }
 }
 
 .cart-badge {
@@ -91,11 +107,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.layout-nav a.active {
-  background: #b91c1c;
-  color: #ffffff;
 }
 
 .layout-content {

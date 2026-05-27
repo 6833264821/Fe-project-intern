@@ -1,3 +1,7 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
 <div class="layout-shell user-shell">
   <header class="layout-header">
     <div class="brand">
@@ -8,15 +12,16 @@
       </div>
     </div>
 
-    <nav class="layout-nav">
-      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
-        Cart
-        @if ((cartService.cartCount$ | async) ?? 0; as count) {
-          @if (count > 0) {
-            <span class="cart-badge">{{ count }}</span>
-          }
+    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+      <span class="material-icons">shopping_cart</span>
+      @if ((cartService.cartCount$ | async) ?? 0; as count) {
+        @if (count > 0) {
+          <span class="cart-badge">{{ count }}</span>
         }
-      </a>
+      }
+    </a>
+
+    <nav class="layout-nav">
       <a routerLink="/home" routerLinkActive="active">Home</a>
       <a routerLink="/shop" routerLinkActive="active">Shop</a>
       <a routerLink="/history-buy" routerLinkActive="active">History Buy</a>
