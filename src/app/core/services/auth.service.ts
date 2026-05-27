@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { API_BASE_URL } from '../config/api-endpoints';
 import {
   AuthUser,
@@ -17,15 +17,17 @@ export class AuthService {
   private readonly storageUserKey = 'feproject-user';
 
   login(payload: LoginRequest): Observable<AuthUser> {
-    return this.http
-      .post<AuthUser>(`${API_BASE_URL}/auth/login`, payload)
-      .pipe(tap((user) => this.saveSession(user)));
+    return this.http.post<any>(`${API_BASE_URL}/auth/login`, payload).pipe(
+      map(response => response.data),
+      tap((user) => this.saveSession(user))
+    );
   }
 
   register(payload: RegisterRequest): Observable<AuthUser> {
-    return this.http
-      .post<AuthUser>(`${API_BASE_URL}/auth/register`, payload)
-      .pipe(tap((user) => this.saveSession(user)));
+    return this.http.post<any>(`${API_BASE_URL}/auth/register`, payload).pipe(
+      map(response => response.data),
+      tap((user) => this.saveSession(user))
+    );
   }
 
   logout(): void {
@@ -50,6 +52,9 @@ export class AuthService {
   /*private saveSession(user: AuthUser): void {
     if (user.token) {
       localStorage.setItem(this.storageTokenKey, user.token);
+  private saveSession(user: AuthUser): void {
+    if (user.accessToken) {
+      localStorage.setItem(this.storageTokenKey, user.accessToken);
     }
     localStorage.setItem(this.storageUserKey, JSON.stringify(user));
   }*/

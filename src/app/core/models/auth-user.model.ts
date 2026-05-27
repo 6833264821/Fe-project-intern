@@ -3,7 +3,7 @@ export interface AuthUser {
   fullName: string;
   email: string;
   role: 'user' | 'admin';
-  token?: string;
+  accessToken?: string;
 }
 
 export interface LoginRequest {
@@ -14,5 +14,7 @@ export interface LoginRequest {
 export interface RegisterRequest {
   fullName: string;
   email: string;
+  tel: string;          
   password: string;
+  adminSecretKey?: string;
 }
