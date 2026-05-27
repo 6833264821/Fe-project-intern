@@ -1,0 +1,134 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="page-heading">
+    <p class="eyebrow">Admin Panel</p>
+    <h2>Dashboard</h2>
+    <p class="subtitle">ภาพรวมและประวัติการสั่งซื้อทั้งหมด</p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <div class="summary-card total">
+      <div class="card-icon">📦</div>
+      <div class="card-content">
+        <p class="card-label">ออเดอร์ทั้งหมด</p>
+        <h3 class="card-value">{{ totalOrders }}</h3>
+      </div>
+    </div>
+
+    <div class="summary-card pending">
+      <div class="card-icon">⏳</div>
+      <div class="card-content">
+        <p class="card-label">รอดำเนินการ</p>
+        <h3 class="card-value">{{ pendingOrders }}</h3>
+      </div>
+    </div>
+
+    <div class="summary-card completed">
+      <div class="card-icon">✅</div>
+      <div class="card-content">
+        <p class="card-label">เสร็จสิ้น</p>
+        <h3 class="card-value">{{ completedOrders }}</h3>
+      </div>
+    </div>
+
+    <div class="summary-card revenue">
+      <div class="card-icon">💰</div>
+      <div class="card-content">
+        <p class="card-label">ยอดขายรวม</p>
+        <h3 class="card-value">฿{{ totalRevenue | number }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order History Table -->
+  <div class="history-section">
+    <div class="section-header">
+      <h3>ประวัติการสั่งซื้อ</h3>
+      <span class="result-count">{{ filteredOrders.length }} รายการ</span>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>สถานะ</label>
+        <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()">
+          <option value="">ทั้งหมด</option>
+          <option value="pending">รอดำเนินการ</option>
+          <option value="completed">เสร็จสิ้น</option>
+          <option value="cancelled">ยกเลิก</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>วันที่</label>
+        <input
+          type="date"
+          [(ngModel)]="filterDate"
+          (ngModelChange)="applyFilters()"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label>User ID</label>
+        <input
+          type="text"
+          placeholder="ค้นหา User ID..."
+          [(ngModel)]="filterUser"
+          (input)="applyFilters()"
+        />
+      </div>
+
+      <button class="clear-btn" (click)="clearFilters()">ล้างตัวกรอง</button>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading">กำลังโหลดข้อมูล...</div>
+    } @else if (filteredOrders.length === 0) {
+      <div class="empty-state">ไม่พบออเดอร์ที่ตรงกับเงื่อนไข</div>
+    } @else {
+      <div class="table-wrapper">
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>User ID</th>
+              <th>รายการสินค้า</th>
+              <th>ยอดรวม</th>
+              <th>สถานะ</th>
+              <th>วันที่สั่ง</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of filteredOrders; track order.orderId) {
+              <tr>
+                <td class="order-id">#{{ order.orderId }}</td>
+                <td>{{ order.userId }}</td>
+                <td class="details-cell">
+                  <ul class="detail-list">
+                    @for (detail of order.details; track detail.productId) {
+                      <li>{{ detail.productName }} x{{ detail.quantity }}</li>
+                    }
+                  </ul>
+                </td>
+                <td class="amount">
+                  @if (getOrderTotal(order) > 0) {
+                    ฿{{ getOrderTotal(order) | number }}
+                  } @else {
+                    -
+                  }
+                </td>
+                <td>
+                  <span class="status-badge" [ngClass]="order.status ?? 'pending'">
+                    {{ getStatusLabel(order) }}
+                  </span>
+                </td>
+                <td class="date-cell">{{ order.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

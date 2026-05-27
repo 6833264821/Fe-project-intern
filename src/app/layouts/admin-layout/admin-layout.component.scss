@@ -83,6 +83,37 @@
   padding-top: 28px;
 }
 
+.nav-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #fbbf24;
+  color: #1a1a2e;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 @media (max-width: 640px) {
   .layout-shell {
     padding: 16px;

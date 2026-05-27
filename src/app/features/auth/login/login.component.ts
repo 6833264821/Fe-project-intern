@@ -22,27 +22,26 @@ export class LoginComponent {
   });
 
   submit(): void {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
-  }
-
-  this.authService.login(this.form.getRawValue()).subscribe({
-    next: (userResponse) => {
-      console.log('Login successful API payload received:', userResponse);
-      
-      // Double check that our token is explicitly set before we run the router
-      if (this.authService.isLoggedIn()) {
-        console.log('Token confirmed in storage. Navigating now...');
-        this.router.navigate(['/shop']);
-      } else {
-        console.warn('Token missing from localStorage, trying to navigate anyway...');
-        this.router.navigate(['/shop']);
-      }
-    },
-    error: (err) => {
-      console.error('Login error:', err);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
-  });
-}
+
+    this.authService.login(this.form.getRawValue()).subscribe({
+      next: () => {
+        const role = this.authService.getRole();
+        console.log('Login successful, role:', role);
+
+        // redirect ตาม role
+        if (role && role.toLowerCase() === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.router.navigate(['/shop']);
+        }
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+      }
+    });
+  }
 }

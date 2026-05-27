@@ -8,29 +8,50 @@
   @if (items.length === 0) {
     <p class="empty-msg">Your cart is empty.</p>
   } @else {
+    <!-- Select All Bar -->
+    <div class="select-all-bar">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="allSelected"
+          (change)="toggleSelectAll()"
+          class="checkbox"
+        />
+        <span>เลือกทั้งหมด ({{ items.length }} รายการ)</span>
+      </label>
+      @if (selectedItems.length > 0 && !allSelected) {
+        <span class="selected-hint">เลือกแล้ว {{ selectedItems.length }} / {{ items.length }} รายการ</span>
+      }
+    </div>
+
     <div class="cart-grid">
       @for (cartItem of items; track cartItem.item.id) {
-        <div class="cart-card">
-          <h3 class="item-name">{{ cartItem.item.name }}</h3>
+        <div class="cart-card" [class.selected]="isSelected(cartItem.item.id)">
+          <!-- Checkbox + ชื่อสินค้า -->
+          <label class="item-checkbox-label">
+            <input
+              type="checkbox"
+              [checked]="isSelected(cartItem.item.id)"
+              (change)="toggleSelect(cartItem.item.id)"
+              class="checkbox"
+            />
+            <span class="item-name">{{ cartItem.item.name }}</span>
+          </label>
+
           <p class="item-desc">{{ cartItem.item.description }}</p>
 
           <div class="item-footer">
             <span class="item-price">฿{{ cartItem.item.price }}</span>
             <span class="item-qty">x{{ cartItem.quantity }}</span>
-            <span class="item-subtotal"
-              >฿{{ cartItem.item.price * cartItem.quantity }}</span
-            >
+            <span class="item-subtotal">฿{{ cartItem.item.price * cartItem.quantity }}</span>
           </div>
 
           <div class="qty-controls">
-            <button class="qty-btn" (click)="decrease(cartItem.item.id)">
-              ▽
-            </button>
+            <button class="qty-btn" (click)="decrease(cartItem.item.id)">▽</button>
             <span class="qty-value">{{ cartItem.quantity }}</span>
-            <button class="qty-btn" (click)="increase(cartItem.item.id)">
-              △
-            </button>
+            <button class="qty-btn" (click)="increase(cartItem.item.id)">△</button>
           </div>
+
           <button
             class="remove-btn"
             (click)="remove(cartItem.item.id, cartItem.item.name)"
@@ -42,17 +63,35 @@
     </div>
 
     <div class="cart-total">
-      <p class="total-count">
-        จำนวนสินค้าทั้งหมด: {{ cartService.getTotalItems() }} ชิ้น
-      </p>
-      <h3>Total: ฿{{ cartService.getTotalPrice() }}</h3>
-      <button
-        class="confirm-btn"
-        (click)="confirmOrder()"
-        [disabled]="isConfirming"
-      >
-        {{ isConfirming ? "กำลังสั่งซื้อ..." : "ยืนยันคำสั่งซื้อ" }}
-      </button>
+      <div class="total-details">
+        <p class="total-count">
+          สินค้าในตะกร้าทั้งหมด: {{ cartService.getTotalItems() }} ชิ้น
+        </p>
+        @if (selectedItems.length < items.length) {
+          <p class="selected-total-note">
+            เลือกสั่งซื้อ: <strong>{{ selectedCount }} ชิ้น</strong> จาก {{ selectedItems.length }} รายการ
+          </p>
+        }
+      </div>
+      <div class="total-right">
+        <h3>
+          @if (selectedItems.length < items.length && selectedItems.length > 0) {
+            ยอดที่เลือก: ฿{{ selectedTotal }}
+          } @else {
+            Total: ฿{{ cartService.getTotalPrice() }}
+          }
+        </h3>
+        <button
+          class="confirm-btn"
+          (click)="confirmOrder()"
+          [disabled]="isConfirming || selectedItems.length === 0"
+        >
+          {{ isConfirming ? 'กำลังสั่งซื้อ...' : 'ยืนยันคำสั่งซื้อ' }}
+          @if (!isConfirming && selectedItems.length > 0) {
+            <span class="confirm-count">({{ selectedItems.length }} รายการ)</span>
+          }
+        </button>
+      </div>
     </div>
   }
 </div>

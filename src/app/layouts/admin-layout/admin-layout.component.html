@@ -9,8 +9,25 @@
     </div>
 
     <nav class="layout-nav">
-      <a routerLink="/admin/items" routerLinkActive="active">Add / Edit / Delete Item</a>
-      <a routerLink="/admin/history" routerLinkActive="active">History</a>
+      <!-- Admin pages -->
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/items" routerLinkActive="active">จัดการสินค้า</a>
+      <a routerLink="/admin/history" routerLinkActive="active">ประวัติ (Admin)</a>
+
+      <span class="nav-divider">|</span>
+
+      <!-- User features accessible by admin -->
+      <a routerLink="/admin/shop" routerLinkActive="active">Shop</a>
+      <a routerLink="/admin/cart" routerLinkActive="active" class="cart-link">
+        Cart
+        @if ((cartService.cartCount$ | async) ?? 0; as count) {
+          @if (count > 0) {
+            <span class="cart-badge">{{ count }}</span>
+          }
+        }
+      </a>
+      <a routerLink="/admin/history-buy" routerLinkActive="active">ประวัติการซื้อ</a>
+
       <button type="button" class="link-button" (click)="logout()">Logout</button>
     </nav>
   </header>
