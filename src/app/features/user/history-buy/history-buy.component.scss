@@ -54,3 +54,120 @@
   display: block;
   color: #2d3748;
 }
+
+.order-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.order-items {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  &.status-paid {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  &.status-cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+}
+
+.order-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #b91c1c;
+  background: white;
+  color: #b91c1c;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: #fff5f5;
+  }
+}
+
+.cancel-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: #fecaca;
+  }
+}
+
+.confirm-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #b91c1c;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: #991b1b;
+  }
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.edit-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.qty-input {
+  width: 60px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #e0b0b0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loading-msg,
+.empty-msg {
+  color: #888;
+  margin-top: 1rem;
+}
