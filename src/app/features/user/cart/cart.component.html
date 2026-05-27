@@ -94,4 +94,19 @@
       </div>
     </div>
   }
+
+  <!-- Custom Modal -->
+  @if (modal.show) {
+    <div class="modal-overlay" (click)="modal.onCancel ? closeModal() : null">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+        <p class="modal-message">{{ modal.message }}</p>
+        <div class="modal-actions">
+          @if (modal.onCancel) {
+            <button class="modal-btn cancel" (click)="closeModal()">ยกเลิก</button>
+          }
+          <button class="modal-btn confirm" (click)="modal.onConfirm()">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>
