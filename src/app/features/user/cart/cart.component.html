@@ -1,0 +1,36 @@
+<!-- cart.component.html -->
+<div class="cart-container">
+  <div class="cart-header">
+    <p class="cart-label">CART</p>
+    <h2>รายการสินค้าในตะกร้า</h2>
+  </div>
+
+  @if (items.length === 0) {
+    <p class="empty-msg">Your cart is empty.</p>
+  } @else {
+    <div class="cart-grid">
+      @for (cartItem of items; track cartItem.item.id) {
+        <div class="cart-card">
+          <h3 class="item-name">{{ cartItem.item.name }}</h3>
+          <p class="item-desc">{{ cartItem.item.description }}</p>
+
+          <div class="item-footer">
+            <span class="item-price">฿{{ cartItem.item.price }}</span>
+            <span class="item-qty">x{{ cartItem.quantity }}</span>
+            <span class="item-subtotal"
+              >฿{{ cartItem.item.price * cartItem.quantity }}</span
+            >
+          </div>
+
+          <button class="remove-btn" (click)="remove(cartItem.item.id)">
+            Remove
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="cart-total">
+      <h3>Total: ฿{{ cartService.getTotalPrice() }}</h3>
+    </div>
+  }
+</div>

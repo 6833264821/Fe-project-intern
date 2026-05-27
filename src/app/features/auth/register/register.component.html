@@ -20,6 +20,18 @@
         />
       </label>
 
+      <div>
+        <label>Phone Number</label>
+        <input
+          type="text"
+          formControlName="tel"
+          placeholder="Enter phone number"
+        />
+
+        <div *ngIf="form.get('tel')?.touched && form.get('tel')?.invalid">
+          Phone number is required.
+        </div>
+      </div>
       <label>
         Password
         <input

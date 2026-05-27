@@ -13,7 +13,7 @@
         <span>฿{{ item.price }}</span>
         <small>Stock: {{ item.stock }}</small>
       </div>
-      <button type="button">Add to cart</button>
+      <button type="button" (click)="addToCart(item)">Add to cart</button>
     </article>
   </div>
 </section>

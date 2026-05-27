@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private readonly formBuilder = inject(FormBuilder);
@@ -19,7 +19,8 @@ export class RegisterComponent {
   readonly form = this.formBuilder.nonNullable.group({
     fullName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    tel: ['', [Validators.required]],
   });
 
   submit(): void {
@@ -29,7 +30,7 @@ export class RegisterComponent {
     }
 
     this.authService.register(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigate(['/shop'])
+      next: () => this.router.navigate(['/shop']),
     });
   }
 }

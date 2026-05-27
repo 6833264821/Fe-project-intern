@@ -9,10 +9,20 @@
     </div>
 
     <nav class="layout-nav">
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Cart
+        @if ((cartService.cartCount$ | async) ?? 0; as count) {
+          @if (count > 0) {
+            <span class="cart-badge">{{ count }}</span>
+          }
+        }
+      </a>
       <a routerLink="/home" routerLinkActive="active">Home</a>
       <a routerLink="/shop" routerLinkActive="active">Shop</a>
       <a routerLink="/history-buy" routerLinkActive="active">History Buy</a>
-      <button type="button" class="link-button" (click)="logout()">Logout</button>
+      <button type="button" class="link-button" (click)="logout()">
+        Logout
+      </button>
     </nav>
   </header>
 

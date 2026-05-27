@@ -74,6 +74,25 @@
   cursor: pointer;
 }
 
+.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #c0392b;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .layout-nav a.active {
   background: #b91c1c;
   color: #ffffff;
