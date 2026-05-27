@@ -11,5 +11,6 @@ export interface Order {
   createdAt: string;
   status?: 'pending' | 'completed' | 'cancelled';  // เพิ่ม status
   total?: number;  // เพิ่ม total
+  totalPrice?: number;
   details: OrderDetail[];
 }
