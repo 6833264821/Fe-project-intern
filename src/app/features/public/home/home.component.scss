@@ -55,17 +55,12 @@
   line-height: 1.7;
 }
 
-/*.web-header {
-  width: 100%;
-  height: 50vh;
-  background-color: #ff7f50;
-}*/
 .web-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 60px 10%;
-  background-color: #fbfbfb; /* Clean, light background */
+  background-color: #fbfbfb;
   min-height: 500px;
 }
 
@@ -83,7 +78,7 @@
 .hero-image-right img {
   max-width: 100%;
   height: auto;
-  border-radius: 20px; /* Gives the image a modern look */
+  border-radius: 20px;
   object-fit: cover;
 }
 
@@ -116,46 +111,43 @@
   max-width: 100vh;
   margin: 0 auto;
   position: relative;
-  //height: 400px;
 }
-/* The outer window that hides the overflow */
+
 .carousel-container {
   display: block;
   width: 100%;
-  //height: 400px;
-  max-width: 1000px; /* Limits size on desktop */
+
+  max-width: 1000px;
   margin: 0 auto;
-  overflow-x: auto; /* Allows horizontal scrolling */
-  scroll-snap-type: x mandatory; /* Force slides to snap into place */
-  scrollbar-width: none; /* Hides scrollbar on Firefox */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
   white-space: nowrap;
 }
 
 .carousel-container::-webkit-scrollbar {
-  display: none; /* Hides scrollbar on Chrome/Safari */
+  display: none;
 }
 
-/* The long row holding all the slides */
 .carousel-track {
   display: flex;
 }
 
-/* Individual slides */
 .carousel-slide {
-  flex: 0 0 100%; /* Each slide takes up 100% of the container width */
-  scroll-snap-align: start; /* Where the slide snaps */
+  flex: 0 0 100%;
+  scroll-snap-align: start;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  padding: 0 8px; /* Adds a tiny gap between slides */
+  padding: 0 8px;
   box-sizing: border-box;
   height: 400px;
 }
 
 .carousel-slide img {
   width: 100%;
-  height: 400px; /* Controls the height of your banner */
-  object-fit: cover; /* Keeps image from looking squished */
+  height: 400px;
+  object-fit: cover;
   border-radius: 12px;
 }
 
