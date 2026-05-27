@@ -16,6 +16,13 @@ export class CartComponent {
     return this.cartService.getCartItems();
   }
 
+  increase(itemId: number) {
+    this.cartService.increaseQuantity(itemId);
+  }
+
+  decrease(itemId: number) {
+    this.cartService.decreaseQuantity(itemId);
+  }
   remove(itemId: number) {
     this.cartService.removeFromCart(itemId);
   }

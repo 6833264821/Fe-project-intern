@@ -22,6 +22,15 @@
             >
           </div>
 
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="decrease(cartItem.item.id)">
+              ▽
+            </button>
+            <span class="qty-value">{{ cartItem.quantity }}</span>
+            <button class="qty-btn" (click)="increase(cartItem.item.id)">
+              △
+            </button>
+          </div>
           <button class="remove-btn" (click)="remove(cartItem.item.id)">
             Remove
           </button>

@@ -75,6 +75,39 @@
     }
   }
 
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+
+    .qty-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #e0b0b0;
+      border-radius: 8px;
+      background: #fdf0f0;
+      color: #c0392b;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f5c6c6;
+      }
+    }
+
+    .qty-value {
+      font-size: 1rem;
+      font-weight: 600;
+      min-width: 24px;
+      text-align: center;
+      color: #1a1a2e;
+    }
+  }
   .remove-btn {
     margin-top: 0.75rem;
     padding: 0.6rem;

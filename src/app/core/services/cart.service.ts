@@ -14,6 +14,12 @@ export class CartService {
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
 
+  private updateCount() {
+    this.cartCountSubject.next(
+      this.cartItems.reduce((sum, c) => sum + c.quantity, 0),
+    );
+  }
+
   addToCart(item: Item) {
     const existing = this.cartItems.find((c) => c.item.id === item.id);
     if (existing) {
@@ -21,16 +27,32 @@ export class CartService {
     } else {
       this.cartItems.push({ item, quantity: 1 });
     }
-    this.cartCountSubject.next(
-      this.cartItems.reduce((sum, c) => sum + c.quantity, 0),
-    );
+    this.updateCount();
+  }
+
+  increaseQuantity(itemId: number) {
+    const existing = this.cartItems.find((c) => c.item.id === itemId);
+    if (existing) {
+      existing.quantity += 1;
+    }
+    this.updateCount();
+  }
+
+  decreaseQuantity(itemId: number) {
+    const existing = this.cartItems.find((c) => c.item.id === itemId);
+    if (existing && existing.quantity === 1) {
+      this.removeFromCart(itemId);
+      return;
+    }
+    if (existing) {
+      existing.quantity -= 1;
+    }
+    this.updateCount();
   }
 
   removeFromCart(itemId: number) {
     this.cartItems = this.cartItems.filter((c) => c.item.id !== itemId);
-    this.cartCountSubject.next(
-      this.cartItems.reduce((sum, c) => sum + c.quantity, 0),
-    );
+    this.updateCount();
   }
 
   getCartItems(): CartItem[] {
