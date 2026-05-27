@@ -9,8 +9,8 @@ export class OrderService {
   private readonly http = inject(HttpClient);
 
   getMyOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${API_BASE_URL}/orders`);
-  }
+  return this.http.get<Order[]>(`${API_BASE_URL}/orders/my-orders`);
+}
 
   getAdminOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${API_BASE_URL}/orders`);
