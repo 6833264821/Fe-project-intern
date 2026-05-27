@@ -28,6 +28,36 @@
   color: #4a5568;
 }
 
+.summary-bar {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+.edit-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #b91c1c;
+  background: white;
+  color: #b91c1c;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: #fff5f5;
+  }
+}
+
+.cancel-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: #fecaca;
+  }
+}
 .history-list {
   display: grid;
   gap: 14px;

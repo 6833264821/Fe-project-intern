@@ -14,17 +14,25 @@
         <article class="history-card">
           @if (editingOrder?.orderId !== order.orderId) {
             <div class="order-info">
-              <div>
+              <div class="order-left">
+                <!--<strong>Order #{{ order.orderId }}</strong>-->
+
                 @for (detail of order.details; track detail.productId) {
-                  <strong>{{ detail.productName }} x {{ detail.quantity }}</strong>
+                  <strong
+                    >{{ detail.productName }} x {{ detail.quantity }}</strong
+                  >
                 }
-                <p class="order-date">{{ order.createdAt | date: "yyyy-MM-dd HH:mm" }}</p>
+                <p class="order-date">
+                  {{ order.createdAt | date: "yyyy-MM-dd HH:mm" }}
+                </p>
               </div>
-              
+
               <div class="order-meta">
                 <div class="total-price-display">
                   <span>ราคารวมทั้งหมด</span>
-                  <strong class="price-amount">{{ order.totalPrice | currency:'THB':'symbol':'1.2-2' }}</strong>
+                  <strong class="price-amount">{{
+                    order.totalPrice | currency: "THB" : "symbol" : "1.2-2"
+                  }}</strong>
                 </div>
 
                 <div class="order-actions">

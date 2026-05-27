@@ -1,4 +1,3 @@
-<!-- admin-history.component.html -->
 <section class="page-card">
   <div class="page-heading">
     <p class="eyebrow">Admin History</p>
@@ -10,21 +9,69 @@
   } @else if (orders.length === 0) {
     <p>ยังไม่มีประวัติการสั่งซื้อ</p>
   } @else {
+    <!-- summary -->
+    <div class="summary-bar">
+      <span
+        >ออเดอร์ทั้งหมด: <strong>{{ orders.length }}</strong> รายการ</span
+      >
+    </div>
+
     <div class="history-list">
       @for (order of orders; track order.orderId) {
         <article class="history-card">
-          <div>
-            <strong>Order #{{ order.orderId }}</strong>
-            <p>User ID: {{ order.userId }}</p>
-            <ul>
-              @for (detail of order.details; track detail.productId) {
-                <li>{{ detail.productName }} x{{ detail.quantity }}</li>
+          @if (editingOrder?.orderId !== order.orderId) {
+            <div class="order-info">
+              <div class="order-left">
+                <strong>Order #{{ order.orderId }}</strong>
+                <p class="order-date">
+                  User ID: {{ order.userId }} ·
+                  {{ order.createdAt | date: "yyyy-MM-dd" }}
+                </p>
+                <ul class="order-items">
+                  @for (detail of order.details; track detail.productId) {
+                    <li>{{ detail.productName }} x{{ detail.quantity }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="order-right">
+                <div class="order-actions">
+                  <button class="edit-btn" (click)="startEdit(order)">
+                    Edit
+                  </button>
+                  <button class="cancel-btn" (click)="deleteOrder(order)">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          } @else {
+            <div class="edit-form">
+              <strong>แก้ไข Order #{{ order.orderId }}</strong>
+              @for (detail of editingOrder!.details; track detail.productId) {
+                <div class="edit-item">
+                  <span>{{ detail.productName }}</span>
+                  <input
+                    type="number"
+                    [(ngModel)]="detail.quantity"
+                    min="1"
+                    class="qty-input"
+                  />
+                </div>
               }
-            </ul>
-          </div>
-          <div>
-            <span>{{ order.createdAt | date: "yyyy-MM-dd" }}</span>
-          </div>
+              <div class="edit-actions">
+                <button
+                  class="confirm-btn"
+                  (click)="saveEdit()"
+                  [disabled]="isSaving"
+                >
+                  {{ isSaving ? "กำลังบันทึก..." : "บันทึก" }}
+                </button>
+                <button class="cancel-btn" (click)="cancelEdit()">
+                  ยกเลิก
+                </button>
+              </div>
+            </div>
+          }
         </article>
       }
     </div>

@@ -9,8 +9,8 @@ export class OrderService {
   private readonly http = inject(HttpClient);
 
   getMyOrders(): Observable<Order[]> {
-  return this.http.get<Order[]>(`${API_BASE_URL}/orders/my-orders`);
-}
+    return this.http.get<Order[]>(`${API_BASE_URL}/orders/my-orders`);
+  }
 
   getAdminOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${API_BASE_URL}/orders`);
@@ -31,5 +31,8 @@ export class OrderService {
     return this.http.patch<Order>(`${API_BASE_URL}/orders/${orderId}`, {
       details,
     });
+  }
+  deleteOrder(orderId: number): Observable<void> {
+    return this.http.delete<void>(`${API_BASE_URL}/orders/${orderId}`);
   }
 }
