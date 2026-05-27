@@ -55,6 +55,9 @@ export class CartService {
     this.updateCount();
   }
 
+  getTotalItems(): number {
+    return this.cartItems.reduce((sum, c) => sum + c.quantity, 0);
+  }
   getCartItems(): CartItem[] {
     return this.cartItems;
   }

@@ -49,7 +49,13 @@
                 </div>
               }
               <div class="edit-actions">
-                <button class="confirm-btn" (click)="saveEdit()">บันทึก</button>
+                <button
+                  class="confirm-btn"
+                  (click)="saveEdit()"
+                  [disabled]="isSaving"
+                >
+                  {{ isSaving ? "กำลังบันทึก..." : "บันทึก" }}
+                </button>
                 <button class="cancel-btn" (click)="cancelEdit()">
                   ยกเลิก
                 </button>

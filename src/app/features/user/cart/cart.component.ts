@@ -28,7 +28,9 @@ export class CartComponent {
   decrease(itemId: number) {
     this.cartService.decreaseQuantity(itemId);
   }
-  remove(itemId: number) {
+  remove(itemId: number, itemName: string) {
+    const confirmed = window.confirm(`ลบ "${itemName}" ออกจากตะกร้า?`);
+    if (!confirmed) return;
     this.cartService.removeFromCart(itemId);
   }
   confirmOrder() {

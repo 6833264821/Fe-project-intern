@@ -17,6 +17,7 @@ export class HistoryBuyComponent implements OnInit {
   orders: Order[] = [];
   editingOrder: Order | null = null;
   isLoading = false;
+  isSaving = false;
 
   ngOnInit() {
     this.loadOrders();
@@ -57,16 +58,53 @@ export class HistoryBuyComponent implements OnInit {
   saveEdit() {
     if (!this.editingOrder) return;
 
-    this.orderService
-      .updateOrder(this.editingOrder.orderId, this.editingOrder.details)
-      .subscribe({
-        next: () => {
-          window.alert('แก้ไข Order สำเร็จ');
-          this.editingOrder = null;
-          this.loadOrders();
-        },
-        error: () => window.alert('เกิดข้อผิดพลาด กรุณาลองใหม่'),
-      });
+    // validate no quantity < 1
+    if (this.editingOrder.details.some((d) => d.quantity < 1)) {
+      window.alert('จำนวนสินค้าต้องมากกว่า 0');
+      return;
+    }
+
+    const confirmed = window.confirm('ยืนยันการแก้ไข Order?');
+    if (!confirmed) return;
+
+    this.isSaving = true;
+    const oldOrderId = this.editingOrder.orderId;
+    const userId = this.editingOrder.userId;
+
+    const newPayload = {
+      userId: userId,
+      items: this.editingOrder.details.map((d) => ({
+        productId: d.productId,
+        quantity: d.quantity,
+      })),
+    };
+
+    this.orderService.cancelOrder(oldOrderId).subscribe({
+      next: () => {
+        // Step 2: create new order with updated quantities
+        this.orderService.createOrder(newPayload).subscribe({
+          next: () => {
+            this.isSaving = false;
+            window.alert('แก้ไข Order สำเร็จ');
+            this.editingOrder = null;
+            this.loadOrders(); // 4.5 auto-refresh
+          },
+          error: (err) => {
+            this.isSaving = false;
+            console.error('Create error:', err.error);
+            window.alert(
+              'ลบ Order เดิมแล้วแต่สร้างใหม่ไม่สำเร็จ: ' +
+                JSON.stringify(err.error),
+            );
+            this.loadOrders();
+          },
+        });
+      },
+      error: () => {
+        this.isSaving = false;
+        window.alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
+      },
+    });
   }
 
   cancelEdit() {

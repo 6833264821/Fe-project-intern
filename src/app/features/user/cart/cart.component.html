@@ -31,7 +31,10 @@
               △
             </button>
           </div>
-          <button class="remove-btn" (click)="remove(cartItem.item.id)">
+          <button
+            class="remove-btn"
+            (click)="remove(cartItem.item.id, cartItem.item.name)"
+          >
             Remove
           </button>
         </div>
@@ -39,6 +42,9 @@
     </div>
 
     <div class="cart-total">
+      <p class="total-count">
+        จำนวนสินค้าทั้งหมด: {{ cartService.getTotalItems() }} ชิ้น
+      </p>
       <h3>Total: ฿{{ cartService.getTotalPrice() }}</h3>
       <button
         class="confirm-btn"
